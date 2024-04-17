@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: xww
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: ollama
+  namespace: kube-system
+spec:
+  repo: https://otwld.github.io/ollama-helm/
+  version: 0.1.32
+  chart: ollama
+  targetNamespace: xww
+  valuesContent: |-
+    persistentVolume:
+      # -- Enable persistence using PVC
+      enabled: ture
+
+      # -- Ollama server data Persistent Volume access modes
+      # Must match those of existing PV or dynamic provisioner
+      # Ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+      accessModes:
+        - ReadWriteOnce
+
+      # -- Ollama server data Persistent Volume annotations
+      annotations: {}
+
+      # -- If you'd like to bring your own PVC for persisting Ollama state, pass the name of the
+      # created + ready PVC here. If set, this Chart will not create the default PVC.
+      # Requires server.persistentVolume.enabled: true
+      existingClaim: ""
+
+      # -- Ollama server data Persistent Volume size
+      size: 30Gi
+
+      # -- Ollama server data Persistent Volume Storage Class
+      # If defined, storageClassName: <storageClass>
+      # If set to "-", storageClassName: "", which disables dynamic provisioning
+      # If undefined (the default) or set to null, no storageClassName spec is
+      # set, choosing the default provisioner.  (gp2 on AWS, standard on
+      # GKE, AWS & OpenStack)
+      storageClass: "local-path"
+
+      # -- Ollama server data Persistent Volume Binding Mode
+      # If defined, volumeMode: <volumeMode>
+      # If empty (the default) or set to null, no volumeBindingMode spec is
+      # set, choosing the default mode.
+      volumeMode: ""
+
+      # -- Subdirectory of Ollama server data Persistent Volume to mount
+      # Useful if the volume's root directory is not empty
+      subPath: ""
+
+    # -- Node labels for pod assignment.

@@ -1,0 +1,20 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: gpu-test
+image: qingfengfeng/k3d-gpu-support:v1.28.8-k3s1-cuda-12.4.1-k8s-device-plugin-v0.15.0-rc.2-base-ubuntu22.04
+ports:
+  - port: 8080:80
+    nodeFilters:
+      - loadbalancer
+  - port: 8443:443
+    nodeFilters:
+      - loadbalancer
+options:
+  runtime: 
+    gpuRequest: all
+volumes: # repeatable flags are represented as YAML lists
+  - volume: C:\Users\wyp\Desktop\test\k3d\manifests\xww:/var/lib/rancher/k3s/server/manifests/xww
+    nodeFilters:
+      - server:0
+      - agent:*

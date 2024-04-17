@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: xww
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: helm-dashboard
+  namespace: kube-system
+spec:
+  repo: https://helm-charts.komodor.io
+  version: 0.1.10
+  chart: helm-dashboard
+  targetNamespace: xww
+  # valuesContent: |-
+  #   service:
+  #     type: "NodePort"
+  #     port: "30100"
