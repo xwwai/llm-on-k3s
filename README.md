@@ -16,7 +16,7 @@ Helm-Dashboard
 ![alt text](./img/image-2.png)
 
 通过 `ollama` 运行 `llama2`
-![alt text](image-1.png)
+![alt text](./img/image-1.png)
 
 `GPU` 占用
 ![alt text](./img/image.png)
